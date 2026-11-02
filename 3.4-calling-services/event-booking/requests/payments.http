@@ -1,0 +1,5 @@
+### Pay (the payment service of the other team)
+POST http://localhost:8081/payments
+Content-Type: application/json
+
+{ "reference": "event 1, alice@example.com", "amount": 78.00 }

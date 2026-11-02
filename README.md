@@ -20,6 +20,7 @@ run with the arrow next to each request. New chapters arrive with `git pull`.
 | `3.1-from-zero` | 3.1 From zero to running service |
 | `3.2-rest-apis` | 3.2 REST APIs done right |
 | `3.3-persistence` | 3.3 Persistence with Spring Data JPA |
+| `3.4-calling-services` | 3.4 Calling other services |
 
 Each folder is the project of its chapter: the code of the slides, the stand-ins and the checks of your lab.
 Open the folder at the start of the chapter and follow along in your IDE. Compare a folder with the next one
@@ -31,6 +32,7 @@ Inside a folder:
 |---|---|---|---|
 | `event-booking` | the service we build in the course | 8080 | `EventBookingApp` |
 | `payment-service` | a stand-in for the payment system, you only start it | 8081 | `PaymentServiceApp` |
+| `event-service` | from 3.4: a stand-in for the event catalogue your review service asks | 8084 | `EventServiceApp` |
 
 ## The documents
 

@@ -1,0 +1,94 @@
+# Checks for lab 3.4 (REV-4) that need the event-service in a special state.
+# Run them one at a time. Before each request, restart the event-service as its comment says:
+# (program argument in the run configuration, or mvn spring-boot:run -Dspring-boot.run.arguments=...)
+#   REV-4.4: --events.delay=5s
+#   REV-4.5: --events.failure-rate=1.0
+#   REV-4.6: event-service stopped
+# REV-4.4 answers after about your own timeout (2 seconds by default).
+# Run against your own review-service on port 8083 (change reviewUrl below if needed).
+# IntelliJ IDEA Ultimate: "Run All Requests in File"; each test shows green or red.
+# The same checks are in review-checks.postman_collection.json (Collection Runner).
+# Order-safe: the checks create what they read and take ids from the responses.
+@reviewUrl = http://localhost:8083
+
+# ----------------------------------------------------------------------
+# REV-4 stub
+# ----------------------------------------------------------------------
+
+### REV-4.4 Slow event service: 504
+# Needs: event-service started with --events.delay=5s
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"author": "Alice", "stars": 5, "text": "Worth every minute."}
+
+> {%
+    const status = response.status;
+    const ctype = response.contentType ? response.contentType.mimeType : null;
+    const location = response.headers.valueOf("Location");
+    const wwwAuth = response.headers.valueOf("WWW-Authenticate");
+    const requestId = response.headers.valueOf("X-Request-Id");
+    let body = response.body;
+    if (typeof body === "string") { try { body = JSON.parse(body); } catch (e) { body = null; } }
+    if (body === undefined || body === "") { body = null; }
+    client.test("status 504", function () {
+        client.assert(status === 504, "status was " + status);
+    });
+    client.test("Content-Type is application/problem+json", function () {
+        client.assert(ctype === "application/problem+json", "Content-Type: " + ctype);
+    });
+    client.test("body has a title", function () {
+        client.assert(body !== null && typeof body.title === "string" && body.title.length > 0, "title: " + (body && body.title));
+    });
+%}
+
+### REV-4.5 Failing event service: 502
+# Needs: event-service started with --events.failure-rate=1.0
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"author": "Alice", "stars": 5, "text": "Worth every minute."}
+
+> {%
+    const status = response.status;
+    const ctype = response.contentType ? response.contentType.mimeType : null;
+    const location = response.headers.valueOf("Location");
+    const wwwAuth = response.headers.valueOf("WWW-Authenticate");
+    const requestId = response.headers.valueOf("X-Request-Id");
+    let body = response.body;
+    if (typeof body === "string") { try { body = JSON.parse(body); } catch (e) { body = null; } }
+    if (body === undefined || body === "") { body = null; }
+    client.test("status 502", function () {
+        client.assert(status === 502, "status was " + status);
+    });
+    client.test("Content-Type is application/problem+json", function () {
+        client.assert(ctype === "application/problem+json", "Content-Type: " + ctype);
+    });
+    client.test("body has a title", function () {
+        client.assert(body !== null && typeof body.title === "string" && body.title.length > 0, "title: " + (body && body.title));
+    });
+%}
+
+### REV-4.6 Event service stopped: reading still works
+# Needs: event-service stopped
+GET {{reviewUrl}}/api/events/1/reviews
+
+> {%
+    const status = response.status;
+    const ctype = response.contentType ? response.contentType.mimeType : null;
+    const location = response.headers.valueOf("Location");
+    const wwwAuth = response.headers.valueOf("WWW-Authenticate");
+    const requestId = response.headers.valueOf("X-Request-Id");
+    let body = response.body;
+    if (typeof body === "string") { try { body = JSON.parse(body); } catch (e) { body = null; } }
+    if (body === undefined || body === "") { body = null; }
+    client.test("status 200", function () {
+        client.assert(status === 200, "status was " + status);
+    });
+    client.test("Content-Type is application/json", function () {
+        client.assert(ctype === "application/json", "Content-Type: " + ctype);
+    });
+    client.test("a page with content", function () {
+        client.assert(body !== null && Array.isArray(body.content), JSON.stringify(body));
+    });
+%}

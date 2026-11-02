@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: event-booking
+  jpa:
+    hibernate:
+      # Flyway owns the schema. Hibernate only checks at startup that the entities match it.
+      ddl-auto: validate
+    open-in-view: false
+  datasource:
+    # H2 in memory. MODE=PostgreSQL, DATABASE_TO_LOWER and DEFAULT_NULL_ORDERING make H2 behave like PostgreSQL.
+    url: jdbc:h2:mem:eventbooking;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH

@@ -1,0 +1,115 @@
+# Checks for lab 3.4 (REV-4): only reviews for events that have taken place.
+# Needs: event-service running normally on port 8084 (no switches).
+# The stub knows event 1 (yesterday), 2 (in 30 days), 3 (in 60 days); all others answer 404.
+# The checks with stub switches are in review-checks-3.4-stub.http.
+# Run against your own review-service on port 8083 (change reviewUrl below if needed).
+# IntelliJ IDEA Ultimate: "Run All Requests in File"; each test shows green or red.
+# The same checks are in review-checks.postman_collection.json (Collection Runner).
+# Order-safe: the checks create what they read and take ids from the responses.
+@reviewUrl = http://localhost:8083
+@eventUrl = http://localhost:8084
+
+# ----------------------------------------------------------------------
+# REV-4
+# ----------------------------------------------------------------------
+
+### REV-4.0 The event-service answers (precondition)
+GET {{eventUrl}}/api/events/1
+
+> {%
+    const status = response.status;
+    const ctype = response.contentType ? response.contentType.mimeType : null;
+    const location = response.headers.valueOf("Location");
+    const wwwAuth = response.headers.valueOf("WWW-Authenticate");
+    const requestId = response.headers.valueOf("X-Request-Id");
+    let body = response.body;
+    if (typeof body === "string") { try { body = JSON.parse(body); } catch (e) { body = null; } }
+    if (body === undefined || body === "") { body = null; }
+    client.test("status 200", function () {
+        client.assert(status === 200, "status was " + status);
+    });
+    client.test("Content-Type is application/json", function () {
+        client.assert(ctype === "application/json", "Content-Type: " + ctype);
+    });
+    client.test("event 1 has a startsAt", function () {
+        client.assert(body !== null && typeof body.startsAt === "string", JSON.stringify(body));
+    });
+%}
+
+### REV-4.1 Review for event 1 (over since yesterday)
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"author": "Alice", "stars": 5, "text": "Worth every minute."}
+
+> {%
+    const status = response.status;
+    const ctype = response.contentType ? response.contentType.mimeType : null;
+    const location = response.headers.valueOf("Location");
+    const wwwAuth = response.headers.valueOf("WWW-Authenticate");
+    const requestId = response.headers.valueOf("X-Request-Id");
+    let body = response.body;
+    if (typeof body === "string") { try { body = JSON.parse(body); } catch (e) { body = null; } }
+    if (body === undefined || body === "") { body = null; }
+    client.test("status 201", function () {
+        client.assert(status === 201, "status was " + status);
+    });
+    client.test("Content-Type is application/json", function () {
+        client.assert(ctype === "application/json", "Content-Type: " + ctype);
+    });
+    client.test("Location ends with /api/reviews/{id}", function () {
+        client.assert(location !== null && location !== undefined && /\/api\/reviews\/\d+$/.test(location) && location.endsWith("/api/reviews/" + body.id), "Location: " + location);
+    });
+%}
+
+### REV-4.2 Review for event 2 (in 30 days)
+POST {{reviewUrl}}/api/events/2/reviews
+Content-Type: application/json
+
+{"author": "Ben", "stars": 5, "text": "Will be great."}
+
+> {%
+    const status = response.status;
+    const ctype = response.contentType ? response.contentType.mimeType : null;
+    const location = response.headers.valueOf("Location");
+    const wwwAuth = response.headers.valueOf("WWW-Authenticate");
+    const requestId = response.headers.valueOf("X-Request-Id");
+    let body = response.body;
+    if (typeof body === "string") { try { body = JSON.parse(body); } catch (e) { body = null; } }
+    if (body === undefined || body === "") { body = null; }
+    client.test("4xx, but not 404", function () {
+        client.assert(status >= 400 && status < 500 && status !== 404, "status was " + status);
+    });
+    client.test("Content-Type is application/problem+json", function () {
+        client.assert(ctype === "application/problem+json", "Content-Type: " + ctype);
+    });
+    client.test("title names the reason, not only the status", function () {
+        client.assert(body !== null && typeof body.title === "string" && ["Bad Request", "Conflict", "Unprocessable Content", "Unprocessable Entity"].indexOf(body.title) < 0, "title: " + (body && body.title));
+    });
+%}
+
+### REV-4.3 Review for event 999 (unknown)
+POST {{reviewUrl}}/api/events/999/reviews
+Content-Type: application/json
+
+{"author": "Cleo", "stars": 4, "text": "Never heard of it."}
+
+> {%
+    const status = response.status;
+    const ctype = response.contentType ? response.contentType.mimeType : null;
+    const location = response.headers.valueOf("Location");
+    const wwwAuth = response.headers.valueOf("WWW-Authenticate");
+    const requestId = response.headers.valueOf("X-Request-Id");
+    let body = response.body;
+    if (typeof body === "string") { try { body = JSON.parse(body); } catch (e) { body = null; } }
+    if (body === undefined || body === "") { body = null; }
+    client.test("status 404", function () {
+        client.assert(status === 404, "status was " + status);
+    });
+    client.test("Content-Type is application/problem+json", function () {
+        client.assert(ctype === "application/problem+json", "Content-Type: " + ctype);
+    });
+    client.test("body has a title", function () {
+        client.assert(body !== null && typeof body.title === "string" && body.title.length > 0, "title: " + (body && body.title));
+    });
+%}
