@@ -1,0 +1,58 @@
+### All events
+GET http://localhost:8080/api/events
+
+### One event
+GET http://localhost:8080/api/events/1
+
+### Create an event
+POST http://localhost:8080/api/events
+Content-Type: application/json
+
+{
+  "title": "Brass Band Evening",
+  "city": "Salzburg",
+  "startsAt": "2027-05-20T19:30:00",
+  "capacity": 200,
+  "price": 29.00
+}
+
+### Create a broken event
+POST http://localhost:8080/api/events
+Content-Type: application/json
+
+{
+  "title": "",
+  "city": "Salzburg",
+  "startsAt": "2020-01-01T19:00:00",
+  "capacity": -5,
+  "price": 25.00
+}
+
+### Change the price of an event
+PUT http://localhost:8080/api/events/1/price
+Content-Type: application/json
+
+{
+  "price": 45.00
+}
+
+### Book seats
+POST http://localhost:8080/api/events/1/bookings
+Content-Type: application/json
+
+{
+  "customerEmail": "alice@example.com",
+  "seats": 2
+}
+
+### Too many seats
+POST http://localhost:8080/api/events/2/bookings
+Content-Type: application/json
+
+{
+  "customerEmail": "ben@example.com",
+  "seats": 80
+}
+
+### My bookings, newest first, page by page
+GET http://localhost:8080/api/bookings?email=alice@example.com&page=0&size=2

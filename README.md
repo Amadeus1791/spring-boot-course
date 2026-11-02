@@ -19,6 +19,7 @@ run with the arrow next to each request. New chapters arrive with `git pull`.
 |---|---|
 | `3.1-from-zero` | 3.1 From zero to running service |
 | `3.2-rest-apis` | 3.2 REST APIs done right |
+| `3.3-persistence` | 3.3 Persistence with Spring Data JPA |
 
 Each folder is the project of its chapter: the code of the slides, the stand-ins and the checks of your lab.
 Open the folder at the start of the chapter and follow along in your IDE. Compare a folder with the next one

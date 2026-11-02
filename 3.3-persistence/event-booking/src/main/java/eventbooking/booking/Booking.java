@@ -1,0 +1,56 @@
+package eventbooking.booking;
+
+import eventbooking.event.Event;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+
+import java.time.LocalDateTime;
+
+@Entity
+public class Booking {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Event event;
+
+    private String customerEmail;
+    private int seats;
+    private LocalDateTime createdAt;
+
+    protected Booking() {
+    }
+
+    public Booking(Event event, String customerEmail, int seats, LocalDateTime createdAt) {
+        this.event = event;
+        this.customerEmail = customerEmail;
+        this.seats = seats;
+        this.createdAt = createdAt;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public int getSeats() {
+        return seats;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+}
