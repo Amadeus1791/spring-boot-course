@@ -1,0 +1,29 @@
+### All events
+GET http://localhost:8080/api/events
+
+### One event
+GET http://localhost:8080/api/events/1
+
+### Create an event
+POST http://localhost:8080/api/events
+Content-Type: application/json
+
+{
+  "title": "Brass Band Evening",
+  "city": "Salzburg",
+  "startsAt": "2027-05-20T19:30:00",
+  "capacity": 200,
+  "price": 29.00
+}
+
+### Create a broken event
+POST http://localhost:8080/api/events
+Content-Type: application/json
+
+{
+  "title": "",
+  "city": "Salzburg",
+  "startsAt": "2020-01-01T19:00:00",
+  "capacity": -5,
+  "price": 25.00
+}

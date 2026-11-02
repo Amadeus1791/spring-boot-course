@@ -1,0 +1,10 @@
+# Lab 3.2: add these lines to src/main/resources/application.yml of your review service,
+# under the key spring: that is already there.
+spring:
+  jpa:
+    hibernate:
+      # Hibernate checks at startup that your entity matches this table.
+      ddl-auto: validate
+  datasource:
+    # H2 in memory: a restart starts empty. MODE=PostgreSQL, DATABASE_TO_LOWER and DEFAULT_NULL_ORDERING make H2 behave like PostgreSQL.
+    url: jdbc:h2:mem:reviewservice;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH

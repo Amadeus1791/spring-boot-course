@@ -1,0 +1,9 @@
+booking:
+  max-seats: 2
+payment:
+  timeout: 10s
+spring:
+  h2:
+    console:
+      # Only on the laptop: the web console of the database at /h2-console.
+      enabled: true

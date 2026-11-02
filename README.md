@@ -18,6 +18,7 @@ run with the arrow next to each request. New chapters arrive with `git pull`.
 | Folder | Chapter |
 |---|---|
 | `3.1-from-zero` | 3.1 From zero to running service |
+| `3.2-rest-apis` | 3.2 REST APIs done right |
 
 Each folder is the project of its chapter: the code of the slides, the stand-ins and the checks of your lab.
 Open the folder at the start of the chapter and follow along in your IDE. Compare a folder with the next one
@@ -37,7 +38,7 @@ Inside a folder:
 ## Your labs
 
 Your labs run in your own review service, created in lab 3.1 with the Initializr. Keep it next to this repository
-and continue it chapter by chapter. 
+and continue it chapter by chapter. For lab 3.2, the table and the database settings are given in `3.2-rest-apis/review-provided/`.
 
 The reference solution of your labs comes after each module, as the project `review-service`:
 the labs of module 3 in `4.1-testing`, of module 4 in `5.1-production`, of module 5 in `5.4-final`.
