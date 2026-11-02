@@ -1,0 +1,12 @@
+target/
+.idea/
+*.iml
+.DS_Store
+HELP.md
+# H2 files of the profile "file"
+data/
+*.mv.db
+*.trace.db
+# Tokens written by review-checks/GetTokens.java (lab 4.3): passwords for 15 minutes, never in Git
+http-client.private.env.json
+review-checks-tokens.postman_environment.json
