@@ -1,11 +1,13 @@
+@baseUrl = http://localhost:8080
+
 ### All events
-GET http://localhost:8080/api/events
+GET {{baseUrl}}/api/events
 
 ### One event
-GET http://localhost:8080/api/events/1
+GET {{baseUrl}}/api/events/1
 
 ### Create an event
-POST http://localhost:8080/api/events
+POST {{baseUrl}}/api/events
 Content-Type: application/json
 
 {
@@ -17,7 +19,7 @@ Content-Type: application/json
 }
 
 ### Create a broken event
-POST http://localhost:8080/api/events
+POST {{baseUrl}}/api/events
 Content-Type: application/json
 
 {
@@ -29,7 +31,7 @@ Content-Type: application/json
 }
 
 ### Change the price of an event
-PUT http://localhost:8080/api/events/1/price
+PUT {{baseUrl}}/api/events/1/price
 Content-Type: application/json
 
 {
@@ -37,7 +39,7 @@ Content-Type: application/json
 }
 
 ### Book seats
-POST http://localhost:8080/api/events/1/bookings
+POST {{baseUrl}}/api/events/1/bookings
 Content-Type: application/json
 
 {
@@ -46,7 +48,7 @@ Content-Type: application/json
 }
 
 ### Too many seats
-POST http://localhost:8080/api/events/2/bookings
+POST {{baseUrl}}/api/events/2/bookings
 Content-Type: application/json
 
 {
@@ -55,4 +57,4 @@ Content-Type: application/json
 }
 
 ### My bookings, newest first, page by page
-GET http://localhost:8080/api/bookings?email=alice@example.com&page=0&size=2
+GET {{baseUrl}}/api/bookings?email=alice@example.com&page=0&size=2

@@ -1,11 +1,13 @@
+@baseUrl = http://localhost:8080
+
 ### All events
-GET http://localhost:8080/api/events
+GET {{baseUrl}}/api/events
 
 ### One event
-GET http://localhost:8080/api/events/1
+GET {{baseUrl}}/api/events/1
 
 ### Create an event
-POST http://localhost:8080/api/events
+POST {{baseUrl}}/api/events
 Content-Type: application/json
 
 {
@@ -17,7 +19,7 @@ Content-Type: application/json
 }
 
 ### Create a broken event
-POST http://localhost:8080/api/events
+POST {{baseUrl}}/api/events
 Content-Type: application/json
 
 {
