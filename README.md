@@ -43,9 +43,9 @@ Inside a folder:
 Your labs run in your own review service, created in lab 3.1 with the Initializr. Keep it next to this repository
 and continue it chapter by chapter. For lab 3.2, the table and the database settings are given in `3.2-rest-apis/review-provided/`.
 
-The reference solution of your labs comes after each module, as the project `review-service`:
-the labs of module 3 in `4.1-testing`, of module 4 in `5.1-production`, of module 5 in `5.4-final`.
-Compare it with your own service the same way, with Compare Directories.
+The solutions of your labs are in `solutions/`, one folder per lab, after the review of the lab:
+`lab-3.1-review-service`, `lab-3.2-review-service`.
+Compare a solution with your own service the same way, with Compare Directories.
 
 ## Checking a lab
 
