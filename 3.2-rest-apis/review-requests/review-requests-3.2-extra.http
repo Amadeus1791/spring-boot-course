@@ -1,0 +1,45 @@
+# Requests of the extra of lab 3.2 (REV-5), in the order of "Check it" in the lab booklet.
+# Start first: your review-service, started fresh.
+@reviewUrl = http://localhost:8083
+
+### A review to change
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"author": "Ben", "stars": 2, "text": "Too loud."}
+
+### PATCH the text
+PATCH {{reviewUrl}}/api/reviews/1
+Content-Type: application/json
+
+{"text": "Too loud, but the band was good."}
+
+### PATCH the text, with stars
+PATCH {{reviewUrl}}/api/reviews/1
+Content-Type: application/json
+
+{"text": "Still too loud.", "stars": 5}
+
+### PATCH an empty text
+PATCH {{reviewUrl}}/api/reviews/1
+Content-Type: application/json
+
+{"text": ""}
+
+### PATCH an unknown review
+PATCH {{reviewUrl}}/api/reviews/999
+Content-Type: application/json
+
+{"text": "Nice."}
+
+### DELETE the review
+DELETE {{reviewUrl}}/api/reviews/1
+
+### GET the deleted review
+GET {{reviewUrl}}/api/reviews/1
+
+### DELETE it again
+DELETE {{reviewUrl}}/api/reviews/1
+
+### DELETE an unknown review
+DELETE {{reviewUrl}}/api/reviews/999

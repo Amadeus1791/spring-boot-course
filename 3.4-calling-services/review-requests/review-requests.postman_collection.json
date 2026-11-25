@@ -1,0 +1,200 @@
+{
+  "info": {
+    "_postman_id": "62d56571-ae5e-5052-a77c-21091d2fe5bf",
+    "name": "review-requests 3.4",
+    "description": "The requests of the labs of chapter 3.4, one folder per lab. Import together with review-requests-local.postman_environment.json and select that environment.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "REV-4",
+      "id": "e3b093fb-f998-50ed-9413-6b58f2adae5d",
+      "description": "Chapter 3.4: the requests of lab 3.4 (REV-4). Start first: EventServiceApp (port 8084), then your review-service without the profile local.",
+      "item": [
+        {
+          "name": "A review for event 1",
+          "id": "ee6d12db-8fc2-538b-8ac3-4ea22bed2ed9",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Alice\", \"stars\": 5, \"text\": \"Worth every minute.\"}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "A review for event 2",
+          "id": "5e848033-dbc5-5c0f-8230-43467481b043",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/2/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "2",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Alice\", \"stars\": 5, \"text\": \"Will be great.\"}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "A review for event 999",
+          "id": "f5b51fa5-5dd5-5517-b5e3-3aeaf6ba9cf0",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/999/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "999",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Alice\", \"stars\": 4, \"text\": \"Never heard of it.\"}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Event service with --events.delay=5s: a review for event 1",
+          "id": "d99d8e7b-a04a-5e3c-93b4-dd6bc5d75b6b",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Ben\", \"stars\": 4, \"text\": \"Good evening.\"}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Event service with --events.failure-rate=1.0: a review for event 1",
+          "id": "1cb2d887-0e97-5abc-ab7b-065c4130842d",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Ben\", \"stars\": 4, \"text\": \"Good evening.\"}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Event service stopped: the reviews of event 1",
+          "id": "b69d5ee8-671d-5fc2-8eb2-014937367275",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+# Requests of lab 3.2 (REV-2), in the order of "Check it" in the lab booklet.
+# Start first: your review-service, started fresh.
+@reviewUrl = http://localhost:8083
+
+### A review for event 1
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"author": "Alice", "stars": 4, "text": "Great evening, good sound."}
+
+### GET the Location
+GET {{reviewUrl}}/api/reviews/1
+
+### PUT on the Location: 3 stars, a new text
+PUT {{reviewUrl}}/api/reviews/1
+Content-Type: application/json
+
+{"stars": 3, "text": "Good, but too short."}
+
+### PUT on the Location: 2 stars, no text
+PUT {{reviewUrl}}/api/reviews/1
+Content-Type: application/json
+
+{"stars": 2}
+
+### PUT on an unknown review
+PUT {{reviewUrl}}/api/reviews/999
+Content-Type: application/json
+
+{"stars": 4}
+
+### GET an unknown review
+GET {{reviewUrl}}/api/reviews/999
+
+### Empty author, 6 stars
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"author": "", "stars": 6}
+
+### Ben, 1 star, no text
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"author": "Ben", "stars": 1}
+
+### Cleo, 5 stars, no text
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"author": "Cleo", "stars": 5}
+
+### After a restart: review 1
+GET {{reviewUrl}}/api/reviews/1

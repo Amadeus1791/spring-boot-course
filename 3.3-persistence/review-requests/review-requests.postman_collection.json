@@ -1,0 +1,508 @@
+{
+  "info": {
+    "_postman_id": "62d56571-ae5e-5052-a77c-21091d2fe5bf",
+    "name": "review-requests 3.3",
+    "description": "The requests of the labs of chapter 3.3, one folder per lab. Import together with review-requests-local.postman_environment.json and select that environment.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "REV-3",
+      "id": "ecf6689a-7b88-5060-a67b-1f7afa48a0d0",
+      "description": "Chapter 3.3: the requests of lab 3.3 (REV-3). Start first: your review-service, started fresh.",
+      "item": [
+        {
+          "name": "Rating of event 2, before any review",
+          "id": "6d863146-dfe2-5335-8d44-2b705a51d65e",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/2/rating",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "2",
+                "rating"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "A review for event 1, 5 stars",
+          "id": "9b952f95-aa97-5d74-8535-22d33138eb14",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Alice\", \"stars\": 5, \"text\": \"Wonderful.\"}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "A review for event 1, 4 stars",
+          "id": "4652d9a9-b149-5349-9455-884403b0cef3",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Ben\", \"stars\": 4, \"text\": \"Very good.\"}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "A review for event 1, 2 stars",
+          "id": "5b28db41-4bde-590a-8d1c-86de5e8104fd",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Cleo\", \"stars\": 2, \"text\": \"Too loud.\"}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Reviews of event 1, two per page",
+          "id": "8fd8e3df-95b9-526c-8a2c-478356e5a870",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews?size=2",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ],
+              "query": [
+                {
+                  "key": "size",
+                  "value": "2"
+                }
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Reviews of event 1",
+          "id": "47b7a87b-d3e9-519e-804f-f6cac2af4497",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Rating of event 1",
+          "id": "b42d74e5-9722-50f6-884e-958cb39160aa",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/rating",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "rating"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Broken JSON",
+          "id": "b908aeb4-e4f9-5d10-b792-b46e3a6a75ef",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Dan\", \"stars\":"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "A wrong type in the URL",
+          "id": "c5ba280c-5fa8-53a8-9a54-78b83c9f2d79",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/abc/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "abc",
+                "reviews"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "REV-6 extra",
+      "id": "c586d70f-6a85-5dc0-a49f-73508d380286",
+      "description": "Chapter 3.3: the requests of the extra of lab 3.3 (REV-6). Start first: your review-service, started fresh.",
+      "item": [
+        {
+          "name": "A review for event 1, 5 stars",
+          "id": "26f41e20-a375-5a7a-a392-868253012671",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Alice\", \"stars\": 5, \"text\": \"Wonderful.\"}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "A review for event 1, 4 stars",
+          "id": "16a87cf4-4c80-5a30-858d-b758310c90a9",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Ben\", \"stars\": 4, \"text\": \"Very good.\"}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "A review for event 1, 2 stars",
+          "id": "c7ae8686-a05d-535e-85d8-e63e96caabc1",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Cleo\", \"stars\": 2, \"text\": \"Too loud.\"}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Only 4 stars and more",
+          "id": "4df06a77-8826-578f-a3eb-c85816a581cf",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews?minStars=4",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ],
+              "query": [
+                {
+                  "key": "minStars",
+                  "value": "4"
+                }
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "All reviews",
+          "id": "be1bc929-7d08-54dd-a8f1-a49f10b66fed",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "minStars 0",
+          "id": "09958e18-9af4-5421-b2a9-3eff842bdf02",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews?minStars=0",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ],
+              "query": [
+                {
+                  "key": "minStars",
+                  "value": "0"
+                }
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "minStars 6",
+          "id": "8ab0e0f7-b0cc-5bc1-9314-f8453e154fb1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews?minStars=6",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ],
+              "query": [
+                {
+                  "key": "minStars",
+                  "value": "6"
+                }
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "minStars abc",
+          "id": "22559046-b17b-5396-9c85-c269177100cd",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews?minStars=abc",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ],
+              "query": [
+                {
+                  "key": "minStars",
+                  "value": "abc"
+                }
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

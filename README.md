@@ -22,7 +22,7 @@ run with the arrow next to each request. New chapters arrive with `git pull`.
 | `3.3-persistence` | 3.3 Persistence with Spring Data JPA |
 | `3.4-calling-services` | 3.4 Calling other services |
 
-Each folder is the project of its chapter: the code of the slides, the stand-ins and the checks of your lab.
+Each folder is the project of its chapter: the code of the slides, the stand-ins and the requests of your lab.
 Open the folder at the start of the chapter and follow along in your IDE. Compare a folder with the next one
 to see what the chapter changed: in IntelliJ select both folders, right click, Compare Directories.
 
@@ -49,11 +49,11 @@ Compare it with your own service the same way, with Compare Directories.
 
 ## Checking a lab
 
-From lab 3.2 on, every lab ends with "Check it": start your service and the stand-ins the lab names, then run
-the checks of the lab from `review-checks/` of the current chapter folder. In IntelliJ IDEA Ultimate the file
-`review-checks-X.Y.http` (Run All Requests in File), in Postman the collection `review-checks.postman_collection.json`
-with the environment `review-checks-local.postman_environment.json`, in the folders the lab names. Each chapter
-folder brings the checks up to its chapter: import the collection of the new folder, it replaces the older one.
+From lab 3.2 on, every lab ends with "Check it": start your service fresh and the stand-ins the lab names, then
+send the requests of the table and compare each answer with the table. The requests are ready in `review-requests/`
+of the chapter folder: in IntelliJ IDEA Ultimate the file `review-requests-X.Y.http`, in Postman the collection
+`review-requests.postman_collection.json` with the environment `review-requests-local.postman_environment.json`,
+one folder per lab. Where a stand-in needs a switch or must be stopped, the name of the request says so.
 
 ## Maven in the terminal
 

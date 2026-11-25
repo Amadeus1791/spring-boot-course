@@ -1,0 +1,42 @@
+# Requests of lab 3.3 (REV-3), in the order of "Check it" in the lab booklet.
+# Start first: your review-service, started fresh.
+@reviewUrl = http://localhost:8083
+
+### Rating of event 2, before any review
+GET {{reviewUrl}}/api/events/2/rating
+
+### A review for event 1, 5 stars
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"author": "Alice", "stars": 5, "text": "Wonderful."}
+
+### A review for event 1, 4 stars
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"author": "Ben", "stars": 4, "text": "Very good."}
+
+### A review for event 1, 2 stars
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"author": "Cleo", "stars": 2, "text": "Too loud."}
+
+### Reviews of event 1, two per page
+GET {{reviewUrl}}/api/events/1/reviews?size=2
+
+### Reviews of event 1
+GET {{reviewUrl}}/api/events/1/reviews
+
+### Rating of event 1
+GET {{reviewUrl}}/api/events/1/rating
+
+### Broken JSON
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"author": "Dan", "stars":
+
+### A wrong type in the URL
+GET {{reviewUrl}}/api/events/abc/reviews

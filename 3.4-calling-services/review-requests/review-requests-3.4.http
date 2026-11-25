@@ -1,0 +1,36 @@
+# Requests of lab 3.4 (REV-4), in the order of "Check it" in the lab booklet.
+# Start first: EventServiceApp (port 8084), then your review-service without the profile local.
+@reviewUrl = http://localhost:8083
+
+### A review for event 1
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"author": "Alice", "stars": 5, "text": "Worth every minute."}
+
+### A review for event 2
+POST {{reviewUrl}}/api/events/2/reviews
+Content-Type: application/json
+
+{"author": "Alice", "stars": 5, "text": "Will be great."}
+
+### A review for event 999
+POST {{reviewUrl}}/api/events/999/reviews
+Content-Type: application/json
+
+{"author": "Alice", "stars": 4, "text": "Never heard of it."}
+
+### Event service with --events.delay=5s: a review for event 1
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"author": "Ben", "stars": 4, "text": "Good evening."}
+
+### Event service with --events.failure-rate=1.0: a review for event 1
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"author": "Ben", "stars": 4, "text": "Good evening."}
+
+### Event service stopped: the reviews of event 1
+GET {{reviewUrl}}/api/events/1/reviews

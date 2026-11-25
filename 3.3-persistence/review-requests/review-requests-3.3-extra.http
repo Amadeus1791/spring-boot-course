@@ -1,0 +1,36 @@
+# Requests of the extra of lab 3.3 (REV-6), in the order of "Check it" in the lab booklet.
+# Start first: your review-service, started fresh.
+@reviewUrl = http://localhost:8083
+
+### A review for event 1, 5 stars
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"author": "Alice", "stars": 5, "text": "Wonderful."}
+
+### A review for event 1, 4 stars
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"author": "Ben", "stars": 4, "text": "Very good."}
+
+### A review for event 1, 2 stars
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"author": "Cleo", "stars": 2, "text": "Too loud."}
+
+### Only 4 stars and more
+GET {{reviewUrl}}/api/events/1/reviews?minStars=4
+
+### All reviews
+GET {{reviewUrl}}/api/events/1/reviews
+
+### minStars 0
+GET {{reviewUrl}}/api/events/1/reviews?minStars=0
+
+### minStars 6
+GET {{reviewUrl}}/api/events/1/reviews?minStars=6
+
+### minStars abc
+GET {{reviewUrl}}/api/events/1/reviews?minStars=abc
