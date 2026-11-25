@@ -11,6 +11,5 @@
 
     <modules>
         <module>event-booking</module>
-        <module>payment-service</module>
     </modules>
 </project>

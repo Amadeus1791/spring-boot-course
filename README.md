@@ -10,8 +10,8 @@ git config core.longpaths true        (Windows only, once)
 ```
 
 In IntelliJ: File, Open, then the chapter folder, for example `3.1-from-zero`. It finds all Maven projects.
-Start `PaymentServiceApp`, then `EventBookingApp`. The requests in `event-booking/requests/*.http`
-run with the arrow next to each request. New chapters arrive with `git pull`.
+Start `EventBookingApp` (from 3.4 on, start `PaymentServiceApp` first). The requests in
+`event-booking/requests/*.http` run with the arrow next to each request. New chapters arrive with `git pull`.
 
 ## One folder per chapter
 
@@ -31,7 +31,7 @@ Inside a folder:
 | Project | What it is | Port | Start class |
 |---|---|---|---|
 | `event-booking` | the service we build in the course | 8080 | `EventBookingApp` |
-| `payment-service` | a stand-in for the payment system, you only start it | 8081 | `PaymentServiceApp` |
+| `payment-service` | from 3.4: a stand-in for the payment system, you only start it | 8081 | `PaymentServiceApp` |
 | `event-service` | from 3.4: a stand-in for the event catalogue your review service asks | 8084 | `EventServiceApp` |
 
 ## The documents

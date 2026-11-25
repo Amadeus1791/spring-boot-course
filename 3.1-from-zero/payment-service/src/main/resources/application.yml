@@ -1,9 +1,0 @@
-server:
-  port: 8081
-spring:
-  application:
-    name: payment-service
-# How the stand-in behaves (changed in later chapters)
-payment:
-  delay: 0ms
-  failure-rate: 0.0
