@@ -12,6 +12,6 @@
     <modules>
         <module>event-booking</module>
         <module>payment-service</module>
-        <module>event-service</module>
+        <module>review-provided/event-service</module>
     </modules>
 </project>
