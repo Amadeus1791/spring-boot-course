@@ -1,0 +1,143 @@
+{
+  "info": {
+    "_postman_id": "62d56571-ae5e-5052-a77c-21091d2fe5bf",
+    "name": "review-requests 4.1",
+    "description": "The requests of the labs of chapter 4.1, one folder per lab. Import together with review-requests-local.postman_environment.json and select that environment.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "REV-11 extra",
+      "id": "be8f185f-877e-5def-a3de-ca9dc9677210",
+      "description": "Chapter 4.1: the requests of the extra of lab 4.1 (REV-11). Start first: EventServiceApp (port 8084), then your review-service, started fresh.",
+      "item": [
+        {
+          "name": "A link in the text",
+          "id": "a758a4d2-4295-5075-9b55-182d8ae55108",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Alice\", \"stars\": 5, \"text\": \"Cheap tickets at https://tickets.example\"}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "A review to change",
+          "id": "566542b1-a0c1-52ae-8d12-592fde723377",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Alice\", \"stars\": 4, \"text\": \"Good evening.\"}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "PUT with a link in the text",
+          "id": "a3763358-0883-556e-8a8c-dc4f37776218",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/reviews/1",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"stars\": 4, \"text\": \"More at WWW.tickets.example\"}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "PUT without a link",
+          "id": "a5990cc0-d867-534c-8f31-045a40aad208",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/reviews/1",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"stars\": 4, \"text\": \"Who needs http anyway.\"}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

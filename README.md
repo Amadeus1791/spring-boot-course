@@ -21,6 +21,7 @@ Start `EventBookingApp` (from 3.4 on, start `PaymentServiceApp` first). The requ
 | `3.2-rest-apis` | 3.2 REST APIs done right |
 | `3.3-persistence` | 3.3 Persistence with Spring Data JPA |
 | `3.4-calling-services` | 3.4 Calling other services |
+| `4.1-testing` | 4.1 Testing a Boot service |
 
 Each folder is the project of its chapter: the code of the slides, the stand-ins and the requests of your lab.
 Open the folder at the start of the chapter and follow along in your IDE. Compare a folder with the next one
@@ -33,16 +34,17 @@ Inside a folder:
 | `event-booking` | the service we build in the course | 8080 | `EventBookingApp` |
 | `payment-service` | from 3.4: a stand-in for the payment system, you only start it | 8081 | `PaymentServiceApp` |
 | `review-provided/event-service` | from 3.4: a stand-in for the event catalogue your review service asks | 8084 | `EventServiceApp` |
+| `review-service` | from 4.1: the review service at the end of the previous module, to start a lab from | 8083 | `ReviewServiceApp` |
 
 ## The documents
 
-`documents/` holds the slides, the lab booklet and the reference sheet of module 3 (`documents/module3`).
+`documents/` holds the slides, the lab booklet and the reference sheet of module 3 (`documents/module3`) and module 4 (`documents/module4`).
 
 ## Your labs
 
 Your labs run in your own review service, created in lab 3.1 with the Initializr. Keep it next to this repository
-and continue it chapter by chapter. In a chapter folder, what your labs need is in `review-provided/` and
-`review-requests/`, the rest is the code of the slides. For lab 3.2, the table and the database settings are given in `3.2-rest-apis/review-provided/`.
+and continue it chapter by chapter. In a chapter folder, what your labs need is in `review-provided/`,
+`review-requests/` and from 4.1 on `review-service/`, the rest is the code of the slides. For lab 3.2, the table and the database settings are given in `3.2-rest-apis/review-provided/`.
 
 The solutions of your labs are in `solutions/`, one folder per lab, after the review of the lab:
 `lab-3.1-review-service`, `lab-3.2-review-service`.

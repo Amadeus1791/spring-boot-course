@@ -1,0 +1,27 @@
+# Requests of the extra of lab 4.1 (REV-11), in the order of "Check it" in the lab booklet.
+# Start first: EventServiceApp (port 8084), then your review-service, started fresh.
+@reviewUrl = http://localhost:8083
+
+### A link in the text
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"author": "Alice", "stars": 5, "text": "Cheap tickets at https://tickets.example"}
+
+### A review to change
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"author": "Alice", "stars": 4, "text": "Good evening."}
+
+### PUT with a link in the text
+PUT {{reviewUrl}}/api/reviews/1
+Content-Type: application/json
+
+{"stars": 4, "text": "More at WWW.tickets.example"}
+
+### PUT without a link
+PUT {{reviewUrl}}/api/reviews/1
+Content-Type: application/json
+
+{"stars": 4, "text": "Who needs http anyway."}

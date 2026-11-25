@@ -1,0 +1,78 @@
+package eventbooking.booking;
+
+import eventbooking.event.Event;
+import eventbooking.event.EventNotFoundException;
+import eventbooking.event.EventRepository;
+import eventbooking.payment.PaymentClient;
+import eventbooking.payment.PaymentDeclinedException;
+import eventbooking.payment.PaymentDetails;
+import eventbooking.payment.PaymentResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+@Service
+public class BookingService {
+
+    private final BookingRepository bookings;
+    private final EventRepository events;
+    private final PaymentClient payments;
+
+    public BookingService(BookingRepository bookings, EventRepository events, PaymentClient payments) {
+        this.bookings = bookings;
+        this.events = events;
+        this.payments = payments;
+    }
+
+    // No transaction here: the payment call must not
+    // hold a database connection.
+    // Each repository call runs in its own short transaction.
+    public BookingResponse book(Long eventId, BookRequest request) {
+        Event event = events.findById(eventId)
+                .orElseThrow(() -> new EventNotFoundException(eventId));
+        long freeSeats = event.getCapacity() - bookings.countBookedSeats(eventId);
+        if (request.seats() > freeSeats) {
+            throw new SeatsNotAvailableException(eventId, freeSeats);
+        }
+        BigDecimal amount = event.getPrice().multiply(BigDecimal.valueOf(request.seats()));
+        PaymentResponse payment = payments.pay(
+                "event " + eventId + ", " + request.customerEmail(), amount);
+        // Declined is an answer, not an error: no booking.
+        if (!"APPROVED".equals(payment.status())) {
+            throw new PaymentDeclinedException(payment.paymentId());
+        }
+        Booking booking = new Booking(event, request.customerEmail(), request.seats(),
+                LocalDateTime.now(), payment.paymentId());
+        return BookingResponse.from(bookings.save(booking));
+    }
+
+    @Transactional(readOnly = true)
+    public BookingResponse findById(Long id) {
+        Booking booking = bookings.findById(id)
+                .orElseThrow(() -> new BookingNotFoundException(id));
+        return BookingResponse.from(booking);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<BookingResponse> findByCustomer(String email, Pageable pageable) {
+        return bookings.findByCustomerEmail(email, pageable).map(BookingResponse::from);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<BookingResponse> findByEvent(Long eventId, Pageable pageable) {
+        if (!events.existsById(eventId)) {
+            throw new EventNotFoundException(eventId);
+        }
+        return bookings.findByEventId(eventId, pageable).map(BookingResponse::from);
+    }
+
+    public PaymentDetails paymentOf(Long bookingId) {
+        Booking booking = bookings.findById(bookingId)
+                .orElseThrow(() -> new BookingNotFoundException(bookingId));
+        return payments.find(booking.getPaymentId());
+    }
+}
