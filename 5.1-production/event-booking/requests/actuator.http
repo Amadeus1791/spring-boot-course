@@ -1,0 +1,34 @@
+@baseUrl = http://localhost:8080
+
+### Health (open for everyone)
+GET {{baseUrl}}/actuator/health
+
+### Health with details (logged in)
+GET {{baseUrl}}/actuator/health
+Authorization: Basic alice@example.com alice
+
+### Liveness and readiness (for the platform)
+GET {{baseUrl}}/actuator/health/liveness
+
+###
+GET {{baseUrl}}/actuator/health/readiness
+
+### Which metrics are there?
+GET {{baseUrl}}/actuator/metrics
+Authorization: Basic alice@example.com alice
+
+### Our own counter
+GET {{baseUrl}}/actuator/metrics/bookings.confirmed
+Authorization: Basic alice@example.com alice
+
+### Requests to the booking endpoint (the braces of {eventId} as %7B and %7D, or Tomcat answers 400)
+GET {{baseUrl}}/actuator/metrics/http.server.requests?tag=uri:/api/events/%7BeventId%7D/bookings
+Authorization: Basic alice@example.com alice
+
+### Book with our own request id
+POST {{baseUrl}}/api/events/1/bookings
+Authorization: Basic alice@example.com alice
+X-Request-Id: call-from-alice-1
+Content-Type: application/json
+
+{ "seats": 2 }

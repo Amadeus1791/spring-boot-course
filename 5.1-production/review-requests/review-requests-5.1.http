@@ -1,0 +1,61 @@
+# Requests of lab 5.1 (REV-14), in the order of "Check it" in the lab booklet.
+# Start first: EventServiceApp (port 8084), then your review-service.
+@reviewUrl = http://localhost:8083
+
+### Health, without login
+GET {{reviewUrl}}/actuator/health
+
+### Metrics, without login
+GET {{reviewUrl}}/actuator/metrics
+
+### Metrics as alice
+GET {{reviewUrl}}/actuator/metrics
+Authorization: Basic alice@example.com alice
+
+### Counter reason:failed as olivia, before
+GET {{reviewUrl}}/actuator/metrics/events.failed?tag=reason:failed
+Authorization: Basic olivia@example.com olivia
+
+### A review for event 99, with a request id
+POST {{reviewUrl}}/api/events/99/reviews
+Authorization: Basic alice@example.com alice
+X-Request-Id: rev14-unknown
+Content-Type: application/json
+
+{"stars": 4, "text": "Great evening."}
+
+### Counter reason:failed as olivia, after
+GET {{reviewUrl}}/actuator/metrics/events.failed?tag=reason:failed
+Authorization: Basic olivia@example.com olivia
+
+### Event service with --events.failure-rate=1.0: counter reason:failed, before
+GET {{reviewUrl}}/actuator/metrics/events.failed?tag=reason:failed
+Authorization: Basic olivia@example.com olivia
+
+### Event service with --events.failure-rate=1.0: a review
+POST {{reviewUrl}}/api/events/1/reviews
+Authorization: Basic alice@example.com alice
+X-Request-Id: rev14-failed
+Content-Type: application/json
+
+{"stars": 4, "text": "Great evening."}
+
+### Event service with --events.failure-rate=1.0: counter reason:failed, after
+GET {{reviewUrl}}/actuator/metrics/events.failed?tag=reason:failed
+Authorization: Basic olivia@example.com olivia
+
+### Event service stopped: counter reason:timeout, before
+GET {{reviewUrl}}/actuator/metrics/events.failed?tag=reason:timeout
+Authorization: Basic olivia@example.com olivia
+
+### Event service stopped: a review
+POST {{reviewUrl}}/api/events/1/reviews
+Authorization: Basic alice@example.com alice
+X-Request-Id: rev14-timeout
+Content-Type: application/json
+
+{"stars": 4, "text": "Great evening."}
+
+### Event service stopped: counter reason:timeout, after
+GET {{reviewUrl}}/actuator/metrics/events.failed?tag=reason:timeout
+Authorization: Basic olivia@example.com olivia

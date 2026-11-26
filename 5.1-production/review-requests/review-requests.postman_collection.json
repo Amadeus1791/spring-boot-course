@@ -1,0 +1,476 @@
+{
+  "info": {
+    "_postman_id": "62d56571-ae5e-5052-a77c-21091d2fe5bf",
+    "name": "review-requests 5.1",
+    "description": "The requests of the labs of chapter 5.1, one folder per lab. Import together with review-requests-local.postman_environment.json and select that environment.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "REV-14",
+      "id": "6467549c-cb36-51a1-b010-b4b7ff1f65a6",
+      "description": "Chapter 5.1: the requests of lab 5.1 (REV-14). Start first: EventServiceApp (port 8084), then your review-service.",
+      "item": [
+        {
+          "name": "Health, without login",
+          "id": "887b9abe-42bf-5238-b8aa-48d78a4c5966",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/actuator/health",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "actuator",
+                "health"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Metrics, without login",
+          "id": "02e3fd3c-85a6-5796-a767-246b4ed57790",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/actuator/metrics",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "actuator",
+                "metrics"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Metrics as alice",
+          "id": "2a1e6977-daa1-55a3-9309-ce9181d06de6",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/actuator/metrics",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "actuator",
+                "metrics"
+              ]
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "alice@example.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "alice",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Counter reason:failed as olivia, before",
+          "id": "4b4255d9-bd43-5297-95c3-1eea44780127",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/actuator/metrics/events.failed?tag=reason:failed",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "actuator",
+                "metrics",
+                "events.failed"
+              ],
+              "query": [
+                {
+                  "key": "tag",
+                  "value": "reason:failed"
+                }
+              ]
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "olivia@example.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "olivia",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "A review for event 99, with a request id",
+          "id": "60801016-1887-5faf-87fb-548bf9b9ea6f",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Request-Id",
+                "value": "rev14-unknown"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/99/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "99",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"stars\": 4, \"text\": \"Great evening.\"}"
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "alice@example.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "alice",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Counter reason:failed as olivia, after",
+          "id": "795ae474-3ad8-5914-82de-1f2db0847769",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/actuator/metrics/events.failed?tag=reason:failed",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "actuator",
+                "metrics",
+                "events.failed"
+              ],
+              "query": [
+                {
+                  "key": "tag",
+                  "value": "reason:failed"
+                }
+              ]
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "olivia@example.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "olivia",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Event service with --events.failure-rate=1.0: counter reason:failed, before",
+          "id": "6e48af31-656d-5525-ad4d-85009d424aa7",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/actuator/metrics/events.failed?tag=reason:failed",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "actuator",
+                "metrics",
+                "events.failed"
+              ],
+              "query": [
+                {
+                  "key": "tag",
+                  "value": "reason:failed"
+                }
+              ]
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "olivia@example.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "olivia",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Event service with --events.failure-rate=1.0: a review",
+          "id": "273d61fc-f3bb-564a-a843-3e9297a7ef4b",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Request-Id",
+                "value": "rev14-failed"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"stars\": 4, \"text\": \"Great evening.\"}"
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "alice@example.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "alice",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Event service with --events.failure-rate=1.0: counter reason:failed, after",
+          "id": "450564f9-c68d-566b-8279-1856863467af",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/actuator/metrics/events.failed?tag=reason:failed",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "actuator",
+                "metrics",
+                "events.failed"
+              ],
+              "query": [
+                {
+                  "key": "tag",
+                  "value": "reason:failed"
+                }
+              ]
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "olivia@example.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "olivia",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Event service stopped: counter reason:timeout, before",
+          "id": "f7c39328-5c09-5033-b86a-54068d137bfc",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/actuator/metrics/events.failed?tag=reason:timeout",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "actuator",
+                "metrics",
+                "events.failed"
+              ],
+              "query": [
+                {
+                  "key": "tag",
+                  "value": "reason:timeout"
+                }
+              ]
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "olivia@example.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "olivia",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Event service stopped: a review",
+          "id": "186f45b3-ba75-5ae9-bcca-5cc25f78971e",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Request-Id",
+                "value": "rev14-timeout"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"stars\": 4, \"text\": \"Great evening.\"}"
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "alice@example.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "alice",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Event service stopped: counter reason:timeout, after",
+          "id": "15a2e523-9861-56c5-84dd-ee834826a0ea",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/actuator/metrics/events.failed?tag=reason:timeout",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "actuator",
+                "metrics",
+                "events.failed"
+              ],
+              "query": [
+                {
+                  "key": "tag",
+                  "value": "reason:timeout"
+                }
+              ]
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "olivia@example.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "olivia",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+@baseUrl = http://localhost:8080
+
+### All events
+GET {{baseUrl}}/api/events
+
+### One event
+GET {{baseUrl}}/api/events/1
+
+### Create an event (organizer)
+POST {{baseUrl}}/api/events
+Authorization: Basic olivia@example.com olivia
+Content-Type: application/json
+
+{
+  "title": "Brass Band Evening",
+  "city": "Salzburg",
+  "startsAt": "2027-05-20T19:30:00",
+  "capacity": 200,
+  "price": 29.00
+}
+
+### Create a broken event (organizer)
+POST {{baseUrl}}/api/events
+Authorization: Basic olivia@example.com olivia
+Content-Type: application/json
+
+{
+  "title": "",
+  "city": "Salzburg",
+  "startsAt": "2020-01-01T19:00:00",
+  "capacity": -5,
+  "price": 25.00
+}
+
+### Change the price of an event (organizer)
+PUT {{baseUrl}}/api/events/1/price
+Authorization: Basic olivia@example.com olivia
+Content-Type: application/json
+
+{
+  "price": 45.00
+}
+
+### Book seats (customer: the one who logs in)
+POST {{baseUrl}}/api/events/1/bookings
+Authorization: Basic alice@example.com alice
+Content-Type: application/json
+
+{
+  "seats": 2
+}
+
+### Too many seats
+POST {{baseUrl}}/api/events/2/bookings
+Authorization: Basic alice@example.com alice
+Content-Type: application/json
+
+{
+  "seats": 80
+}
+
+### Declined by the payment service (start it with --payment.decline-above=100)
+POST {{baseUrl}}/api/events/3/bookings
+Authorization: Basic alice@example.com alice
+Content-Type: application/json
+
+{
+  "seats": 2
+}
+
+### My bookings, newest first, page by page
+GET {{baseUrl}}/api/bookings?page=0&size=2
+Authorization: Basic alice@example.com alice
+
+### One booking
+GET {{baseUrl}}/api/bookings/1
+Authorization: Basic ben@example.com ben
+
+### Bookings of an event, for the organizer
+GET {{baseUrl}}/api/events/1/bookings?page=0&size=20
+Authorization: Basic olivia@example.com olivia
+
+### The payment of a booking
+GET {{baseUrl}}/api/bookings/1/payment
+Authorization: Basic alice@example.com alice

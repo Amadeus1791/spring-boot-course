@@ -1,0 +1,8 @@
+# Profile "file": the database in a file instead of in memory, to look into it with a database tool
+# (IntelliJ IDEA Ultimate: Database, +, H2, the same URL, user sa, no password). AUTO_SERVER lets a second
+# connection in while the service runs. The data survives a restart. Default without this profile: in memory.
+# The user is set on purpose: with a file URL, Boot sets none, and a database tool would ask for one.
+spring:
+  datasource:
+    url: jdbc:h2:file:./data/eventbooking;AUTO_SERVER=TRUE;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH
+    username: sa

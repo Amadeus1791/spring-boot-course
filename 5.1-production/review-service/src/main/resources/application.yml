@@ -1,0 +1,13 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: review-service
+  jpa:
+    hibernate:
+      # Flyway owns the schema. Hibernate only checks at startup that the entities match it.
+      ddl-auto: validate
+    open-in-view: false
+  datasource:
+    # H2 in memory: a restart starts empty. MODE=PostgreSQL, DATABASE_TO_LOWER and DEFAULT_NULL_ORDERING make H2 behave like PostgreSQL.
+    url: jdbc:h2:mem:reviewservice;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH

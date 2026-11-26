@@ -23,6 +23,7 @@ Start `EventBookingApp` (from 3.4 on, start `PaymentServiceApp` first). The requ
 | `3.4-calling-services` | 3.4 Calling other services |
 | `4.1-testing` | 4.1 Testing a Boot service |
 | `4.2-security` | 4.2 Spring Security essentials |
+| `5.1-production` | 5.1 Production-ready service |
 
 Each folder is the project of its chapter: the code of the slides, the stand-ins and the requests of your lab.
 Open the folder at the start of the chapter and follow along in your IDE. Compare a folder with the next one
@@ -39,7 +40,7 @@ Inside a folder:
 
 ## The documents
 
-`documents/` holds the slides, the lab booklet and the reference sheet of module 3 (`documents/module3`) and module 4 (`documents/module4`).
+`documents/` holds the slides, the lab booklet and the reference sheet of module 3 (`documents/module3`) and module 4 (`documents/module4`) and module 5 (`documents/module5`).
 
 ## Your labs
 

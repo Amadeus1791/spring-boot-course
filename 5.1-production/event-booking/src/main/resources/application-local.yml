@@ -1,0 +1,12 @@
+booking:
+  max-seats: 2
+payment:
+  timeout: 10s
+logging:
+  level:
+    org.hibernate.SQL: debug
+spring:
+  h2:
+    console:
+      # Only on the laptop: the web console of the database at /h2-console.
+      enabled: true
