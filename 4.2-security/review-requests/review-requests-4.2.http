@@ -1,0 +1,43 @@
+# Requests of lab 4.2 (REV-9), in the order of "Check it" in the lab booklet.
+# Start first: EventServiceApp (port 8084), then your review-service, started fresh.
+@reviewUrl = http://localhost:8083
+
+### The reviews of event 1, without login
+GET {{reviewUrl}}/api/events/1/reviews
+
+### A review for event 1, without login
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"stars": 4, "text": "Great evening."}
+
+### The same as olivia
+POST {{reviewUrl}}/api/events/1/reviews
+Authorization: Basic olivia@example.com olivia
+Content-Type: application/json
+
+{"stars": 4, "text": "Great evening."}
+
+### The same as alice, with an author
+POST {{reviewUrl}}/api/events/1/reviews
+Authorization: Basic alice@example.com alice
+Content-Type: application/json
+
+{"author": "Mallory", "stars": 4, "text": "Great evening."}
+
+### PUT on that review as ben
+PUT {{reviewUrl}}/api/reviews/1
+Authorization: Basic ben@example.com ben
+Content-Type: application/json
+
+{"stars": 1, "text": "Terrible."}
+
+### Read that review
+GET {{reviewUrl}}/api/reviews/1
+
+### PUT on that review as alice
+PUT {{reviewUrl}}/api/reviews/1
+Authorization: Basic alice@example.com alice
+Content-Type: application/json
+
+{"stars": 5, "text": "Thought about it: excellent."}

@@ -1,0 +1,29 @@
+# Requests of the extra of lab 4.2 (REV-12), in the order of "Check it" in the lab booklet.
+# Start first: your review-service.
+@reviewUrl = http://localhost:8083
+
+### Writing without login
+POST {{reviewUrl}}/api/events/1/reviews
+Content-Type: application/json
+
+{"stars": 4, "text": "Great evening."}
+
+### Wrong password
+POST {{reviewUrl}}/api/events/1/reviews
+Authorization: Basic alice@example.com Alice
+Content-Type: application/json
+
+{"stars": 4, "text": "Great evening."}
+
+### An organizer writes a review
+POST {{reviewUrl}}/api/events/1/reviews
+Authorization: Basic olivia@example.com olivia
+Content-Type: application/json
+
+{"stars": 5, "text": "My own event, of course."}
+
+### Changing without login
+PUT {{reviewUrl}}/api/reviews/1
+Content-Type: application/json
+
+{"stars": 1, "text": "Terrible."}

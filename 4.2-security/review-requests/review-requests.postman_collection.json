@@ -1,0 +1,426 @@
+{
+  "info": {
+    "_postman_id": "62d56571-ae5e-5052-a77c-21091d2fe5bf",
+    "name": "review-requests 4.2",
+    "description": "The requests of the labs of chapter 4.2, one folder per lab. Import together with review-requests-local.postman_environment.json and select that environment.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "REV-9",
+      "id": "1b0d7ab3-3b4c-5d90-b0ad-93cfca8cae06",
+      "description": "Chapter 4.2: the requests of lab 4.2 (REV-9). Start first: EventServiceApp (port 8084), then your review-service, started fresh.",
+      "item": [
+        {
+          "name": "The reviews of event 1, without login",
+          "id": "4d3d627d-1fdc-5b70-81c9-a3c948066210",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "A review for event 1, without login",
+          "id": "5bdae808-d4d6-531a-a1d9-296172750a3d",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"stars\": 4, \"text\": \"Great evening.\"}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "The same as olivia",
+          "id": "9e1e138c-070f-5bb6-8a22-8857a5fd78f2",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"stars\": 4, \"text\": \"Great evening.\"}"
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "olivia@example.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "olivia",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "The same as alice, with an author",
+          "id": "cc46d333-17bb-5a9a-b074-add122b92467",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Mallory\", \"stars\": 4, \"text\": \"Great evening.\"}"
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "alice@example.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "alice",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT on that review as ben",
+          "id": "dd19f085-5996-5f82-95fc-9ab7a310bbda",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/reviews/1",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"stars\": 1, \"text\": \"Terrible.\"}"
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "ben@example.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "ben",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Read that review",
+          "id": "9f8dc440-0fe9-5bb1-ac77-a997e1975ec0",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{reviewUrl}}/api/reviews/1",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews",
+                "1"
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "PUT on that review as alice",
+          "id": "63158749-7b60-53ad-9bac-afa987f33548",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/reviews/1",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"stars\": 5, \"text\": \"Thought about it: excellent.\"}"
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "alice@example.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "alice",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "REV-12 extra",
+      "id": "13e973b9-59c5-5fd4-8b9c-63ca14da862a",
+      "description": "Chapter 4.2: the requests of the extra of lab 4.2 (REV-12). Start first: your review-service.",
+      "item": [
+        {
+          "name": "Writing without login",
+          "id": "f6579555-e202-590f-a7f5-2d11fd839794",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"stars\": 4, \"text\": \"Great evening.\"}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Wrong password",
+          "id": "594c1f10-b2d3-5b1b-8a70-e092881dd3e2",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"stars\": 4, \"text\": \"Great evening.\"}"
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "alice@example.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "Alice",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "An organizer writes a review",
+          "id": "41ae0f3a-ea54-53f7-8601-f3c50fcf10b7",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/events/1/reviews",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "events",
+                "1",
+                "reviews"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"stars\": 5, \"text\": \"My own event, of course.\"}"
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "olivia@example.com",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "olivia",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Changing without login",
+          "id": "58be0b78-0c75-58cf-aba5-d44ab9e44a2f",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{reviewUrl}}/api/reviews/1",
+              "host": [
+                "{{reviewUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"stars\": 1, \"text\": \"Terrible.\"}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

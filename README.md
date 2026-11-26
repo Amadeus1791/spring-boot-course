@@ -22,6 +22,7 @@ Start `EventBookingApp` (from 3.4 on, start `PaymentServiceApp` first). The requ
 | `3.3-persistence` | 3.3 Persistence with Spring Data JPA |
 | `3.4-calling-services` | 3.4 Calling other services |
 | `4.1-testing` | 4.1 Testing a Boot service |
+| `4.2-security` | 4.2 Spring Security essentials |
 
 Each folder is the project of its chapter: the code of the slides, the stand-ins and the requests of your lab.
 Open the folder at the start of the chapter and follow along in your IDE. Compare a folder with the next one
