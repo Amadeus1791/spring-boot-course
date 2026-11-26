@@ -36,7 +36,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // Users in memory: only for the course. In a bank they live in a central identity provider.
+    // Users in memory: only for the course. In a company they live in a central identity provider.
     @Bean
     public UserDetailsService userDetailsService(PasswordEncoder encoder) {
         return new InMemoryUserDetailsManager(

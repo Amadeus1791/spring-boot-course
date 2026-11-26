@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * A stand-in for the bank's payment service. Not part of the course content:
+ * A stand-in for a real payment service. Not part of the course content:
  * start it and leave it running.
  */
 @SpringBootApplication
