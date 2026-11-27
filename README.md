@@ -41,6 +41,7 @@ Inside a folder:
 ## The documents
 
 `documents/` holds the slides, the lab booklet and the reference sheet of module 3 (`documents/module3`) and module 4 (`documents/module4`) and module 5 (`documents/module5`).
+`documents/module6` holds the exam quiz of the last day, every question followed by its answer.
 
 ## Your labs
 
@@ -50,6 +51,7 @@ and continue it chapter by chapter. In a chapter folder, what your labs need is 
 
 The solutions of your labs are in `solutions/`, one folder per lab, after the review of the lab:
 `lab-3.1-review-service`, `lab-3.2-review-service`.
+The solution of lab 5.1 (your own health indicator and metric in `event-booking`): `lab-5.1-event-booking`.
 Compare a solution with your own service the same way, with Compare Directories.
 
 ## Checking a lab

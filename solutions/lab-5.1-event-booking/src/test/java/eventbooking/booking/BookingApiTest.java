@@ -1,0 +1,122 @@
+package eventbooking.booking;
+
+import eventbooking.payment.PaymentClient;
+import eventbooking.payment.PaymentFailedException;
+import eventbooking.payment.PaymentDetails;
+import eventbooking.payment.PaymentResponse;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.client.RestTestClient;
+
+import java.math.BigDecimal;
+import java.net.URI;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+// The whole service on a real port, only the payment service is a mock.
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureRestTestClient
+class BookingApiTest {
+
+    @Autowired
+    RestTestClient client;
+
+    @MockitoBean
+    PaymentClient payments;
+
+    @Autowired
+    BookingRepository bookings;
+
+    @Test
+    void booksAndListsTheBooking() {
+        // Arrange
+        when(payments.pay(any(), any())).thenReturn(new PaymentResponse("p-42", "APPROVED"));
+
+        // Act
+        client.post().uri("/api/events/1/bookings")
+                .headers(headers -> headers.setBasicAuth("alice@example.com", "alice"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("{\"seats\": 2}")
+                .exchange()
+                .expectStatus().isCreated();
+
+        // Assert
+        client.get().uri("/api/bookings")
+                .headers(headers -> headers.setBasicAuth("alice@example.com", "alice"))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.content[0].paymentId").isEqualTo("p-42");
+    }
+
+    @Test
+    void storesNothingWhenThePaymentFails() {
+        // Arrange
+        when(payments.pay(any(), any())).thenThrow(new PaymentFailedException(HttpStatus.SERVICE_UNAVAILABLE));
+        long before = bookings.count();
+
+        // Act
+        client.post().uri("/api/events/1/bookings")
+                .headers(headers -> headers.setBasicAuth("alice@example.com", "alice"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("{\"seats\": 2}")
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_GATEWAY)
+                .expectBody()
+                .jsonPath("$.title").isEqualTo("Payment failed");
+
+        // Assert
+        assertThat(bookings.count()).isEqualTo(before);
+    }
+
+    @Test
+    void answers400ForAnUnknownSortField() {
+        // Act and Assert
+        client.get().uri("/api/bookings?sort=foo")
+                .headers(headers -> headers.setBasicAuth("alice@example.com", "alice"))
+                .exchange()
+                .expectStatus().isBadRequest()
+                .expectHeader().contentType(MediaType.APPLICATION_PROBLEM_JSON)
+                .expectBody()
+                .jsonPath("$.title").isEqualTo("Invalid sort");
+    }
+
+    @Test
+    void onlyTheCustomerOrAnOrganizerSeesThePayment() {
+        // EVB-17: the rule sits on the service, so this test starts the whole service.
+        // Arrange
+        when(payments.pay(any(), any())).thenReturn(new PaymentResponse("p-7", "APPROVED"));
+        when(payments.find("p-7")).thenReturn(new PaymentDetails("p-7", "APPROVED", new BigDecimal("78.00")));
+        URI booking = client.post().uri("/api/events/1/bookings")
+                .headers(headers -> headers.setBasicAuth("alice@example.com", "alice"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("{\"seats\": 2}")
+                .exchange()
+                .expectStatus().isCreated()
+                .returnResult().getResponseHeaders().getLocation();
+        URI payment = URI.create(booking + "/payment");
+
+        // Act and Assert
+        client.get().uri(payment)
+                .headers(headers -> headers.setBasicAuth("ben@example.com", "ben"))
+                .exchange()
+                .expectStatus().isForbidden();
+        client.get().uri(payment)
+                .headers(headers -> headers.setBasicAuth("olivia@example.com", "olivia"))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.paymentId").isEqualTo("p-7");
+        client.get().uri(payment)
+                .headers(headers -> headers.setBasicAuth("alice@example.com", "alice"))
+                .exchange()
+                .expectStatus().isOk();
+    }
+}
